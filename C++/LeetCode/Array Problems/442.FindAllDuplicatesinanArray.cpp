@@ -45,3 +45,23 @@ public:
         return op;
     }
 };
+
+// an optimised solution
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++){
+            int x = abs(nums[i]);
+            if((nums[x-1]<0)){
+                ans.push_back(x);
+            }else{
+                nums[x-1]*=-1;
+            }
+        }
+        return ans;
+    }
+};
