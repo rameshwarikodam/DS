@@ -1,4 +1,7 @@
 /*Problem Statement
+
+https://www.codingninjas.com/codestudio/problems/first-and-last-position-of-an-element-in-sorted-array_1082549?source=youtube&campaign=love_babbar_codestudio2&utm_source=youtube&utm_medium=affiliate&utm_campaign=love_babbar_codestudio2
+
 You have been given a sorted array/list ARR consisting of ‘N’ elements. You are also given an integer ‘K’.
 Now, your task is to find the first and last occurrence of ‘K’ in ARR.
 Note :
@@ -45,3 +48,120 @@ Sample Output 2:
 0 3
 0 0*/
 
+/*
+AAPROACH:
+we will write seperate functions for first and last occurrence.
+*/
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int firstOccr(int arr[], int size, int key) {
+    int start = 0, end = size -1;
+    int mid = start + (end - start)/2;
+    int ans = -1;
+    while(start <= end) {
+        if(key == arr[mid]) {
+        ans = mid;
+        end = mid - 1;
+        }
+        // right part
+        else if(key > arr[mid]) {
+            start = mid + 1;
+        }
+        //left part
+        if(key < arr[mid]) {
+            end = mid - 1;
+        }
+        mid = start + (end - start)/2;   
+    }
+    return ans;
+}
+
+int lastOccr(int arr[], int size, int key) {
+    int start = 0, end = size -1;
+    int mid = start + (end - start)/2;
+    int ans = -1;
+    while(start <= end) {
+        if(key == arr[mid]) {
+            ans = mid;
+            start = mid + 1;
+        }
+        else if(key > arr[mid]) {
+            start = mid + 1;
+        }
+        else {
+            end = mid - 1;
+        }
+        mid = start + (end - start)/2;
+    }
+    return ans;
+}
+
+int main() {
+    int even[6] = {2,12,12,12,12,45};
+    int odd[7] = {4,5,7,15,45,78,87};
+    int key;
+    cout << "Enter key to search:";
+    cin >> key;
+    int first;
+    first = lastOccr(even, 6, key);
+    cout << "Element: " << key <<" found at position " << first << endl;
+    // int oddIndex;
+    // oddIndex = binarySearch(odd, 7, key);
+    // cout << "Element: " << key <<" found at position " << oddIndex << endl;
+}
+
+
+// CODE SUBMITTED ON CN PLATFORM
+ //first occurrence
+int firstOccr(vector<int>& arr, int size, int key) {
+    int s = 0, e = size - 1;
+    int mid = s + (e-s)/2;
+    int ans = -1;
+    while(s<=e) {
+        if(arr[mid] == key) {
+            ans = mid;
+            e = mid - 1;
+        }
+        else if(key > arr[mid]) {
+            s = mid + 1;
+        }
+        else {
+            e = mid - 1;
+        }
+        mid = s + (e-s)/2;
+    }
+    return ans;
+}
+
+//last occurrence
+int lastOccr(vector<int>& arr, int size, int key) {
+    int s = 0, e = size-1;
+    int mid = s + (e-s)/2;
+    int ans = -1;
+    while(s<=e) {
+        if(arr[mid]==key){
+            ans = mid;
+            s = mid+1;
+        }
+        else if(key > arr[mid]) {
+            s = mid + 1;
+        }
+        else {
+            e = mid - 1;
+        }
+        mid = s + (e-s)/2;
+    }
+    return ans;
+}
+
+pair<int, int> firstAndLastPosition(vector<int>& arr, int n, int k)
+{
+    // Write your code here
+    pair<int,int> p;
+    p.first = firstOccr(arr, n, k);
+    p.second = lastOccr(arr, n, k);
+    return p;
+}
